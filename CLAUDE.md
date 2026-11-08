@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-PhysicSchool is a Django web app created from the Visual Studio "Django Web Project" template (`PhysicSchool.slnx` + `PhysicSchool/PhysicSchool.pyproj`). It is still close to the template: one app (`app`), no models yet, Bootstrap 3 + jQuery 1.10 served as local static files. The only dependency is `Django>=3.2.14` (settings were generated for Django 2.1).
+PhysicSchool is a Django web app created from the Visual Studio "Django Web Project" template (`PhysicSchool.slnx` + `PhysicSchool/PhysicSchool.pyproj`). It is still close to the template: one app (`app`), no models yet, Bootstrap 3 + jQuery 1.10 served as local static files. The only dependency is `Django>=4.2,<5.0` (4.2 LTS) (settings were generated for Django 2.1).
 
 ## Commands
 
