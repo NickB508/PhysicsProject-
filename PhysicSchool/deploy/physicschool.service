@@ -1,0 +1,16 @@
+[Unit]
+Description=PhysicSchool (gunicorn)
+After=network.target
+
+[Service]
+User=deploy
+Group=www-data
+WorkingDirectory=/srv/physicschool/PhysicSchool
+EnvironmentFile=/etc/physicschool.env
+ExecStart=/srv/physicschool/venv/bin/gunicorn PhysicSchool.wsgi:application --workers 3 --bind unix:/run/physicschool/gunicorn.sock
+RuntimeDirectory=physicschool
+RuntimeDirectoryMode=0775
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
