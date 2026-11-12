@@ -4,11 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-PhysicSchool is a Django web app created from the Visual Studio "Django Web Project" template (`PhysicSchool.slnx` + `PhysicSchool/PhysicSchool.pyproj`). It is still close to the template: one app (`app`), no models yet, Bootstrap 3 + jQuery 1.10 served as local static files. The only dependency is `Django>=4.2,<5.0` (4.2 LTS) (settings were generated for Django 2.1).
+PhysicSchool is a Django web app created from the Visual Studio "Django Web Project" template (`PhysicSchool.slnx` + `PhysicSchool/PhysicSchool.pyproj`). It is still close to the template: one app (`app`), no models yet, Bootstrap 3 + jQuery 1.10 served as local static files. Dependencies (`requirements.txt`): `Django>=4.2,<5.0` (4.2 LTS; settings were generated for Django 2.1), plus `whitenoise` (imported by `settings.py` middleware, so it must be installed locally too) and `gunicorn` (server only). Developer onboarding and the short deploy procedure are in `PhysicSchool/README.md`; full server details are in `PhysicSchool/deploy/DEPLOY.md`. Keep README in sync when setup or deploy steps change.
+
+## Per-developer setup
+
+Several developers work on different machines, so nothing machine-specific belongs in checked-in files:
+
+- **Python interpreter:** differs per machine and is described in `CLAUDE.local.md` (gitignored, next to this file). If it is missing, ask the user which interpreter to use (`py -0p` lists installed ones) and write it there. Don't put interpreter paths in this file.
+- **Django settings:** `settings.py` reads `DJANGO_*` environment variables (`SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, `DB_PATH`). Locally they can be set in `PhysicSchool/.env` (gitignored; copy from `PhysicSchool/.env.example`). Real environment variables take precedence over `.env`; the server uses `/etc/physicschool.env`. Add new per-developer settings the same way: read them via `os.environ.get` in `settings.py` and document them in `.env.example`.
 
 ## Commands
 
-Run everything from the inner `PhysicSchool/` directory, where `manage.py` lives. On this machine, `python` on PATH is the Microsoft Store stub. The real interpreter is Python 3.9 (`py -3.9` or `C:\Users\user\AppData\Local\Programs\Python\Python39\python.exe`), and it has Django 4.2 installed globally (no virtualenv). Substitute it for `python` below:
+Run everything from the inner `PhysicSchool/` directory, where `manage.py` lives. Substitute the interpreter from `CLAUDE.local.md` for `python` below:
 
 ```bash
 pip install -r requirements.txt
@@ -31,4 +38,5 @@ There is no linter or formatter configured.
 
 ## Gotchas
 
-- `settings.py` hardcodes `SECRET_KEY`, sets `DEBUG = True` and `ALLOWED_HOSTS = []`, so it is only suitable for development.
+- Without environment variables `settings.py` falls back to development defaults (a dev `SECRET_KEY`, `DEBUG` on, empty `ALLOWED_HOSTS`). Production values come only from the environment.
+- `manage.py check` passes even if `whitenoise` is missing; the failure only appears when `runserver` loads the WSGI app. After pulling changes to `requirements.txt`, rerun `pip install -r requirements.txt`.

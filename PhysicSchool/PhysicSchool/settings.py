@@ -16,6 +16,33 @@ import posixpath
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+def _load_env_file(path):
+    """Read KEY=VALUE lines from a per-developer .env file (not in git).
+
+    Variables already set in the real environment win, so the server's
+    /etc/physicschool.env and shell exports always take precedence.
+    """
+    if not os.path.isfile(path):
+        return
+    with open(path, encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#') or '=' not in line:
+                continue
+            key, value = line.split('=', 1)
+            key = key.strip()
+            if key.startswith('export '):
+                key = key[len('export '):].strip()
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in '"\'':
+                value = value[1:-1]
+            os.environ.setdefault(key, value)
+
+
+# Local overrides: copy .env.example to .env (next to manage.py) and edit it.
+_load_env_file(os.path.join(BASE_DIR, '.env'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 

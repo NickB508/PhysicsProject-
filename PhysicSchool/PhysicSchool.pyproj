@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include=".env.example" />
+    <Content Include="README.md" />
     <Content Include="db.sqlite3" />
     <Content Include="deploy\physicschool.service" />
     <Content Include="deploy\nginx.conf" />

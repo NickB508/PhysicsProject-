@@ -316,6 +316,13 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Per-developer settings (templates: PhysicSchool/.env.example, CLAUDE.md)
+.env
+CLAUDE.local.md
+.venv/
+venv/
+env/
+
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config
