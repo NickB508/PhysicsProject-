@@ -12,7 +12,7 @@
 
 <div class="cards-grid">
     {% for course in courses %}
-    <a href="{{ course.url }}" class="card" data-class="{{ course.grade }}">
+    <a href="{% url 'labs' course.grade %}" class="card" data-class="{{ course.grade }}">
         <div class="card-number">{{ course.grade }}</div>
         <div class="card-content">
             <div class="card-title">{{ course.title }}</div>

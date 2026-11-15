@@ -316,6 +316,9 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Django collectstatic output (STATIC_ROOT); built on the server by deploy.sh
+PhysicSchool/static/
+
 # Per-developer settings (templates: PhysicSchool/.env.example, CLAUDE.md)
 .env
 CLAUDE.local.md

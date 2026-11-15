@@ -47,6 +47,11 @@
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
+    <Folder Include="app\static\app\docs\" />
+    <Folder Include="app\static\app\docs\7\" />
+    <Folder Include="app\static\app\docs\8\" />
+    <Folder Include="app\static\app\docs\9\" />
+    <Folder Include="app\static\app\docs\10\" />
     <Folder Include="app\static\app\fonts\" />
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
@@ -55,6 +60,8 @@
     <Folder Include="PhysicSchool\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\docs\7\7 ЛР жёсткость.doc" />
+    <Content Include="app\templates\app\labs.html" />
     <Content Include="requirements.txt" />
     <Content Include=".env.example" />
     <Content Include="README.md" />

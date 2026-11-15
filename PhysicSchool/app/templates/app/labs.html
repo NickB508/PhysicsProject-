@@ -1,0 +1,26 @@
+{% extends "app/layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<p><a href="{% url 'home' %}">&larr; Все классы</a></p>
+<h2>{{ title }}</h2>
+
+{% if docs %}
+<div class="cards-grid">
+    {% for doc in docs %}
+    <a href="{% static doc.static_path %}" download="{{ doc.download_name }}" class="card">
+        <div class="card-number">{{ forloop.counter }}</div>
+        <div class="card-content">
+            <div class="card-title">{{ doc.title }}</div>
+            <div class="card-subtitle">Файл {{ doc.ext }}</div>
+        </div>
+        <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12M6 11l6 6 6-6M5 21h14"/></svg>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">Документы для {{ grade }} класса пока не добавлены.</p>
+{% endif %}
+
+{% endblock %}

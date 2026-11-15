@@ -2,18 +2,34 @@
 Definition of views.
 """
 
+import os
 from datetime import datetime
+from django.http import Http404, HttpRequest
 from django.shortcuts import render
-from django.http import HttpRequest
 
-# Карточки на главной. Пока ссылки ведут на '#'. Когда появятся страницы
-# разделов, замените 'url' на адрес раздела (например, reverse('...')).
+# Карточки на главной. Каждая ведёт на /labs/<grade>/.
 COURSES = [
-    {'grade': 7,  'title': '7 класс', 'url': '#'},
-    {'grade': 8,  'title': '8 класс', 'url': '#'},
-    {'grade': 9,  'title': '9 класс', 'url': '#'},
-    {'grade': 10, 'title': '10 класс', 'url': '#'},
+    {'grade': 7,  'title': '7 класс'},
+    {'grade': 8,  'title': '8 класс'},
+    {'grade': 9,  'title': '9 класс'},
+    {'grade': 10, 'title': '10 класс'},
 ]
+
+# Документы лабораторных работ по классам.
+# Файлы кладите в app/static/app/docs/<класс>/ (имя латиницей, без пробелов),
+# например app/static/app/docs/7/lab-01.docx, и добавляйте строку сюда:
+#     7: [
+#         {'title': 'Лабораторная работа №1. Измерение объёма тела', 'file': '7/lab-01.docx'},
+#     ],
+# 'title' показывается на странице и становится именем скачанного файла.
+LAB_DOCS = {
+    7: [
+        {'title': '7Г жесткость', 'file': '7/7 ЛР жёсткость.doc'},
+        ],
+    8: [],
+    9: [],
+    10: [],
+}
 
 
 def home(request):
@@ -26,7 +42,6 @@ def home(request):
             'title':'Home Page',
             'year':datetime.now().year,
             'courses': COURSES,
-            'grades': sorted({c['grade'] for c in COURSES}),
         }
     )
 
@@ -53,5 +68,32 @@ def about(request):
             'title':'About',
             'message':'Your application description page.',
             'year':datetime.now().year,
+        }
+    )
+
+
+def labs(request, grade):
+    """Renders the list of lab documents for one grade (/labs/<grade>/)."""
+    assert isinstance(request, HttpRequest)
+    if grade not in LAB_DOCS:
+        raise Http404('Нет такого класса')
+    docs = []
+    for doc in LAB_DOCS[grade]:
+        # Расширение берётся из самого файла (.doc, .docx, .pdf ...).
+        ext = os.path.splitext(doc['file'])[1].lower()
+        docs.append({
+            'title': doc['title'],
+            'static_path': 'app/docs/' + doc['file'],
+            'download_name': doc['title'] + ext,
+            'ext': ext,
+        })
+    return render(
+        request,
+        'app/labs.html',
+        {
+            'title': f'Лабораторные работы, {grade} класс',
+            'grade': grade,
+            'docs': docs,
+            'year': datetime.now().year,
         }
     )
