@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\static\app\docs\7\7 ЛР жёсткость.doc" />
+    <Content Include="app\static\app\docs\7\7 ЛР рычаги.doc" />
     <Content Include="app\templates\app\labs.html" />
     <Content Include="requirements.txt" />
     <Content Include=".env.example" />
