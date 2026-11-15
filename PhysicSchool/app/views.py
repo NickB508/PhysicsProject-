@@ -6,6 +6,16 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 
+# Карточки на главной. Пока ссылки ведут на '#'. Когда появятся страницы
+# разделов, замените 'url' на адрес раздела (например, reverse('...')).
+COURSES = [
+    {'grade': 7,  'title': '7 класс', 'url': '#'},
+    {'grade': 8,  'title': '8 класс', 'url': '#'},
+    {'grade': 9,  'title': '9 класс', 'url': '#'},
+    {'grade': 10, 'title': '10 класс', 'url': '#'},
+]
+
+
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -15,6 +25,8 @@ def home(request):
         {
             'title':'Home Page',
             'year':datetime.now().year,
+            'courses': COURSES,
+            'grades': sorted({c['grade'] for c in COURSES}),
         }
     )
 
@@ -25,7 +37,7 @@ def contact(request):
         request,
         'app/contact.html',
         {
-            'title':'Contact',
+            'title':'Контакты',
             'message':'Your contact page.',
             'year':datetime.now().year,
         }
