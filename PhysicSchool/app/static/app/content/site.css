@@ -143,7 +143,7 @@ input[type="checkbox"].input-validation-error {
     justify-content: center;
     font-size: 24px;
     font-weight: 700;
-    color: var(--ps-primary);
+    color: #79F527;
     background: var(--ps-primary-subtle);
     border-radius: 12px;
 }
