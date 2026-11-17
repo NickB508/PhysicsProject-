@@ -63,6 +63,12 @@
   <ItemGroup>
     <Content Include="app\static\app\docs\7\7 ЛР жёсткость.doc" />
     <Content Include="app\static\app\docs\7\7 ЛР рычаги.doc" />
+    <Content Include="app\static\app\docs\8\8 Ом %28автовосстановление%29.docx" />
+    <Content Include="app\static\app\docs\8\8В ЛР конструирование цепи.docx" />
+    <Content Include="app\static\app\docs\8\8В ЛР плавление.doc" />
+    <Content Include="app\static\app\docs\8\8В ЛР тепловой баланс.docx" />
+    <Content Include="app\static\app\docs\8\8В ЛР удельная теплоёмкость.docx" />
+    <Content Include="app\static\app\docs\9\9 лр маятник.docx" />
     <Content Include="app\templates\app\labs.html" />
     <Content Include="requirements.txt" />
     <Content Include=".env.example" />
